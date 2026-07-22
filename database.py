@@ -25,7 +25,8 @@ def init_db():
     conn.commit()
     conn.close()
 
-    def add_expense(title, amount, category, date):
+
+def add_expense(title, amount, category, date):
     conn = get_connection()
     conn.execute(
         "INSERT INTO expenses (title, amount, category, date) VALUES (?, ?, ?, ?)",
@@ -43,6 +44,7 @@ def get_all_expenses():
     conn.close()
     return expenses
 
+
 def get_total():
     conn = get_connection()
     result = conn.execute("SELECT SUM(amount) AS total FROM expenses").fetchone()
@@ -55,5 +57,3 @@ def get_totals_by_category():
     results = conn.execute(
         "SELECT category, SUM(amount) AS total FROM expenses GROUP BY category"
     ).fetchall()
-    conn.close()
-    return results
