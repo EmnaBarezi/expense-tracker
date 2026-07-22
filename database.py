@@ -42,3 +42,18 @@ def get_all_expenses():
     ).fetchall()
     conn.close()
     return expenses
+
+def get_total():
+    conn = get_connection()
+    result = conn.execute("SELECT SUM(amount) AS total FROM expenses").fetchone()
+    conn.close()
+    return result["total"] if result["total"] else 0
+
+
+def get_totals_by_category():
+    conn = get_connection()
+    results = conn.execute(
+        "SELECT category, SUM(amount) AS total FROM expenses GROUP BY category"
+    ).fetchall()
+    conn.close()
+    return results
