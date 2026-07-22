@@ -15,3 +15,12 @@ def home():
 
 if __name__ == "__main__":
     app.run(debug=True)
+@app.route("/add", methods=["POST"])
+def add_expense():
+    title = request.form["title"]
+    amount = float(request.form["amount"])
+    category = request.form["category"]
+    date = request.form["date"]
+
+    database.add_expense(title, amount, category, date)
+    return redirect("/")
