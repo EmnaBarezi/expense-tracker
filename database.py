@@ -24,3 +24,21 @@ def init_db():
     """)
     conn.commit()
     conn.close()
+
+    def add_expense(title, amount, category, date):
+    conn = get_connection()
+    conn.execute(
+        "INSERT INTO expenses (title, amount, category, date) VALUES (?, ?, ?, ?)",
+        (title, amount, category, date)
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_all_expenses():
+    conn = get_connection()
+    expenses = conn.execute(
+        "SELECT * FROM expenses ORDER BY date DESC"
+    ).fetchall()
+    conn.close()
+    return expenses
