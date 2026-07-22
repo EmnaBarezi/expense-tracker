@@ -13,8 +13,6 @@ def home():
     return render_template("index.html", expenses=expenses, total=total)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
 @app.route("/add", methods=["POST"])
 def add_expense():
     title = request.form["title"]
@@ -24,3 +22,7 @@ def add_expense():
 
     database.add_expense(title, amount, category, date)
     return redirect("/")
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
